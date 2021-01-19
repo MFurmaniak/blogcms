@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts'
+    'accounts',
+    'blog',
 ]
 
 MIDDLEWARE = [
@@ -52,22 +53,24 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'blogcms3.urls'
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
+
+TEMPLATES_DIR = os.path.join(BASE_DIR,'templates') 
+  
+TEMPLATES = [ 
+    { 
+        'BACKEND': 'django.template.backends.django.DjangoTemplates', 
+        'DIRS': [TEMPLATES_DIR], 
+        'APP_DIRS': True, 
+        'OPTIONS': { 
+            'context_processors': [ 
+                'django.template.context_processors.debug', 
+                'django.template.context_processors.request', 
+                'django.contrib.auth.context_processors.auth', 
+                'django.contrib.messages.context_processors.messages', 
+            ], 
+        }, 
+    }, 
+] 
 
 WSGI_APPLICATION = 'blogcms3.wsgi.application'
 
