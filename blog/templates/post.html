@@ -16,35 +16,15 @@ align-content: center;
 opacity: 1.0; } 
 a {text-align: center; text-decoration: none;} 
 </style> 
-<script type="application/ld+json"> 
-{ 
-  "@context": "https://schema.org/", 
-  "@type": "Post", 
-  "headline": "{{ object.title }}", 
-  "description": "{{ object.metades }}", 
-  "mainEntityOfPage": { 
-    "@type": "WebPage", 
-    "@id": "{% url 'post_detail' object.slug %}" 
-}, 
-  "author": { 
-    "@type": "Person", 
-    "name": "{{ post.author.first_name }} {{ post.author.last_name " 
-  }, 
-  "publisher": { 
-    "@type": "Organization", 
-    "name": "GeeksForGeeks", 
-  }, 
-  "datePublished": "{{ news.created_on }}", 
-  "dateModified": "{{ news.created_on }}", 
-  "mentions": "{{ object.source }}" 
-} 
-</script> 
+
 <div class="container"> 
   <div class="row">   
 <div class="col-md-6 left"> 
         <h1 class="card-title">{% block title %} {{ object.title }} {% endblock title %}</h1> 
-        <p class=" text-muted">{{ object.author.first_name }} {{ object.author.last_name }} |{{ object.created_on }}</p> 
+        <p class=" text-muted">{{ object.author }}|{{ object.created_on }}</p> 
         <p class="card-text">{{ object.content | safe }}</p> 
+        <p class="card-text">{{ object.vote }}</p> 
+		<a href={% url 'upvote' object.blog object.slug  %} class="btn btn-outline-primary">Upvote </a>
       </div> 
        </div> 
        </div> 

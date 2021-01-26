@@ -19,19 +19,16 @@ text-align: center; }
     <div class="container"> 
       <p class="h1"> </p> 
                 </div> 
-				
-        <span><a href="create-post" class="btn btn-outline-primary">Add Post</a></span> 
 </header> 
 <div class="container"> 
     <div class="row"> 
         <div class="col-md-8 mt-3 left"> 
-            {% for post in posts_list %} 
+            {% for blog in blog_list %} 
             <div class="shadow-none card mb-4" id="newsfeed"> 
                 <div class="card-body"> 
-                    <h3 class="card-title">{{ post.title }}</h3> 
-                    <p class="card-text text-muted h6"><span>{{ post.author.first_name }} {{ post.author.last_name }}</span> | {{ post.created_on}} </p> 
-                    <p class="card-text">{{post.metades }}</p> 
-                    <span><a href="{% url 'post_detail' post.blog post.slug  %}" class="btn btn-outline-primary">Read More →</a></span> 
+                    <h3 class="card-title">{{ blog.title }}</h3> 
+                    <p class="card-text text-muted h6"><span>{{ blog.author}}</span> | {{ blog.created_on}} </p> 
+                    <span><a href="{% url 'posts' blog.slug  %}" class="btn btn-outline-primary">Read More →</a></span>
                 </div> 
             </div> 
             {% endfor %} 
