@@ -1,6 +1,6 @@
 # importing models and libraries 
 from django.shortcuts import render 
-from .models import posts, Blog
+from .models import posts, Blog, Comment
 from .forms import BlogForm, CommentForm, PostForm
 from django.views import generic 
 from django.views.decorators.http import require_GET 
@@ -24,10 +24,29 @@ class bloglist(generic.ListView):
     queryset= Blog.objects.order_by('-created_on') 
   
 # class based view for each post 
-class postdetail(generic.DetailView): 
+class postdetail( generic.DetailView): 
     model = posts 
     template_name = "post.html"
-	
+  
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = CommentForm()
+        self.post = get_object_or_404(posts, slug=self.kwargs['slug'])
+        context['comments'] = Comment.objects.filter(post=self.post).order_by('-created_on') 
+        return context
+		
+    def post(self, request,**kwargs):
+        self.post = get_object_or_404(posts, slug=self.kwargs['slug'])
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.post=self.post 
+            obj.author=request.user
+            obj.author_id=request.user.id
+            obj.save()
+        return HttpResponseRedirect(request.path_info)
+
+
 		
 def create_Post(request, blog):
     # if this is a POST request we need to process the form data

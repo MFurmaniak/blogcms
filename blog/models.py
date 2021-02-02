@@ -68,13 +68,11 @@ class Comment(models.Model):
 
     content = models.TextField() 
 
-
-    status = models.IntegerField(choices=STATUS, default=0) 
   
     # meta for the class 
     class Meta: 
         ordering = ['-created_on'] 
     # used while managing models from terminal 
     def __str__(self): 
-        return self.title 
+        return self.content 
 		
