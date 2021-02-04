@@ -37,8 +37,9 @@ class postDeleteView(generic.DeleteView):
 	
 class postEditView(generic.UpdateView): 
     model = posts 
-    template_name = "edit_post.html"
+    template_name = "post_edit.html"
     fields = ['title', 'slug','content','status']
+    success_url ="/"	
 	
 	
 class bloglist(generic.ListView): 
