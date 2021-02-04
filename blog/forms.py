@@ -9,7 +9,7 @@ class BlogForm(ModelForm):
 class PostForm(ModelForm):
     class Meta:
 	    model=posts
-	    fields = ['title', 'slug','content']
+	    fields = ['title', 'slug','content','status']
 
 class CommentForm(ModelForm):
     class Meta:

@@ -19,8 +19,7 @@ text-align: center; }
     <div class="container"> 
       <p class="h1"> </p> 
                 </div> 
-				       <span><a href="accounts/" class="btn btn-outline-primary">Log in</a></span> 
-				       <span><a href="accounts/register/" class="btn btn-outline-primary">Register</a></span> 
+				       <span><a href="accounts/" class="btn btn-outline-primary">Log out</a></span> 
 </header> 
 <div class="container"> 
     <div class="row"> 
@@ -30,7 +29,8 @@ text-align: center; }
                 <div class="card-body"> 
                     <h3 class="card-title">{{ blog.title }}</h3> 
                     <p class="card-text text-muted h6"><span>{{ blog.author}}</span> | {{ blog.created_on}} </p> 
-                    <span><a href="{% url 'posts' blog.slug  %}" class="btn btn-outline-primary">Read More →</a></span>
+                    <span><a href="{% url 'postseditlist' blog.slug  %}" class="btn btn-outline-primary">Read More →</a></span>
+                    <span><a href="{% url 'deleteblog' blog.slug  %}" class="btn btn-outline-primary">Delete →</a></span>
                 </div> 
             </div> 
             {% endfor %} 

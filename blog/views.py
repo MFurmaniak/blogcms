@@ -17,13 +17,43 @@ class postslist(generic.ListView):
         self.blog = get_object_or_404(Blog, slug=self.kwargs['blog'])
         return posts.objects.filter(status=1).filter(blog=self.blog).order_by('-created_on') 
  
+class blogDeleteView(generic.DeleteView): 
+    model = Blog 
+    template_name = "delete.html"
+    success_url ="/"
+	
+class postseditlist(generic.ListView): 
+    model = Blog
+    template_name = 'posts_edit.html'
+    paginate_by = 4
+    def get_queryset(self):
+        self.blog = get_object_or_404(Blog, slug=self.kwargs['blog'])
+        return posts.objects.filter(blog=self.blog).order_by('-created_on') 
+		
+class postDeleteView(generic.DeleteView): 
+    model = posts 
+    template_name = "delete.html"
+    success_url ="/"	
+	
+class postEditView(generic.UpdateView): 
+    model = posts 
+    template_name = "edit_post.html"
+    fields = ['title', 'slug','content','status']
+	
+	
 class bloglist(generic.ListView): 
     model = Blog
     template_name = 'blogs.html'
     paginate_by = 4
     queryset= Blog.objects.order_by('-created_on') 
-  
-# class based view for each post 
+	
+class editbloglist(generic.ListView): 
+    model = Blog
+    template_name = 'blogs_edit.html'
+    paginate_by = 4
+    def get_queryset(self):
+        return Blog.objects.filter(author=self.request.user.id).order_by('-created_on')  
+		
 class postdetail( generic.DetailView): 
     model = posts 
     template_name = "post.html"
@@ -60,7 +90,6 @@ def create_Post(request, blog):
             obj.blog=get_object_or_404(Blog, slug=blog)
             obj.author=request.user
             obj.author_id=request.user.id
-            obj.status=1
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
