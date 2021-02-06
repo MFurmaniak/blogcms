@@ -19,7 +19,16 @@ class Blog(models.Model):
  
     updated_on = models.DateTimeField(auto_now= True) 
     created_on = models.DateTimeField(auto_now_add=True) 
-
+    look  =  models.TextField(default="""#container img { 
+border-radius: 29px; 
+width: 100%; 
+height: 360px; 
+opacity: 0.7; 
+align-content: center; 
+} 
+#container img { 
+opacity: 1.0; } 
+a {text-align: center; text-decoration: none;}""") 
   
     # meta for the class 
     class Meta: 

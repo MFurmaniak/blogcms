@@ -7,7 +7,10 @@ from .forms import RegisterForm
 
 @login_required
 def index(request):
-    return redirect("/edit")
+    if request.user.is_superuser:
+        return redirect("/edit")
+    else:
+            return redirect("/")
 def sign_up(request):
     context = {}
     form = UserCreationForm(request.POST or None)
@@ -15,7 +18,10 @@ def sign_up(request):
         if form.is_valid():
             user = form.save()
             login(request,user)
-            return redirect("/edit")
+            if request.user.is_superuser:
+                return redirect("/edit")
+            else:
+                return redirect("/")
     context['form']=form
     return render(request,'registration/sign_up.html',context)
 
