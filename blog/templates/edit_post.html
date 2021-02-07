@@ -4,8 +4,10 @@
 <span>  <a href="/" class="btn btn-outline-primary">Main </a></span> 
 <form action="create-post" method="post">
     {% csrf_token %}
-    {{ form }}
+	<table>
+    {{ form.as_table }}
     <input type="submit" value="Submit">
+	</table>
 </form>
 
 {% endblock%}

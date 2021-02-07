@@ -112,25 +112,16 @@ class postdetail( generic.DetailView):
 
 		
 def create_Post(request, blog):
-    # if this is a POST request we need to process the form data
     if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
         if request.user.is_superuser:
             form = PostForm(request.POST)
-    
-        # check whether it's valid:
             if form.is_valid():    
                 obj = form.save(commit=False)
                 obj.blog=get_object_or_404(Blog, slug=blog)
                 obj.author=request.user
                 obj.author_id=request.user.id
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
                 obj.save()
                 return HttpResponseRedirect('/'+blog)
-
-    # if a GET (or any other method) we'll create a blank form
     else:
         form = PostForm()
 
@@ -144,32 +135,16 @@ def upvote(request, blog, slug):
 
 	
 def create_blog(request):
-    # if this is a POST request we need to process the form data
     if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
         form = BlogForm(request.POST)
-        # check whether it's valid:
         if form.is_valid():
             obj = form.save(commit=False)
             obj.author=request.user
             obj.author_id=request.user.id
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
             obj.save()
-            return HttpResponseRedirect('admin/')
+            return HttpResponseRedirect('/')
 
-    # if a GET (or any other method) we'll create a blank form
     else:
         form = BlogForm()
-        form.look="""#container img { 
-border-radius: 29px; 
-width: 100%; 
-height: 360px; 
-opacity: 0.7; 
-align-content: center; 
-} 
-#container img { 
-opacity: 1.0; } 
-a {text-align: center; text-decoration: none;}"""
+
     return render(request, 'blog.html', {'form': form})
